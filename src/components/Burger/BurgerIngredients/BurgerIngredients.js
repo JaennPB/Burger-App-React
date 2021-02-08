@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './BurgerIngretients.module.css';
+import classes from './BurgerIngredients.module.css';
 import PropTypes from 'prop-types';
 
 const burgerIngredients = (props) => {
@@ -12,8 +12,8 @@ const burgerIngredients = (props) => {
     case 'bread-top':
       ingredient = (
         <div className={classes.BreadTop}>
-          <div className={classes.seeds1}></div>
-          <div className={classes.seeds2}></div>
+          <div className={classes.Seeds1}></div>
+          <div className={classes.Seeds2}></div>
         </div>
       );
       break;
