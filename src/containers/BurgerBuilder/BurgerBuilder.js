@@ -3,6 +3,13 @@ import React, { Component } from 'react';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
+const INGREDIENTS_PRICE = {
+  salad: 0.3,
+  bacon: 1,
+  cheese: 0.5,
+  meat: 1.4,
+};
+
 class BurgerBuilder extends Component {
   state = {
     ingredients: {
@@ -11,13 +18,30 @@ class BurgerBuilder extends Component {
       cheese: 0,
       meat: 0,
     },
+    totalPrice: 2,
+  };
+
+  addIngredientsHandler = (type) => {
+    const oldCount = this.state.ingredients[type];
+    const updatedCount = oldCount + 1;
+
+    const newIngObject = {
+      ...this.state.ingredients,
+    };
+    newIngObject[type] = updatedCount;
+
+    const itemPrice = INGREDIENTS_PRICE[type];
+    const oldPrice = this.state.totalPrice;
+    const newPrice = oldPrice + itemPrice;
+
+    this.setState({ totalPrice: newPrice, ingredients: newIngObject });
   };
 
   render() {
     return (
       <React.Fragment>
         <Burger ingredientsObject={this.state.ingredients} />
-        <BuildControls />
+        <BuildControls addIngredients={this.addIngredientsHandler} />
       </React.Fragment>
     );
   }
