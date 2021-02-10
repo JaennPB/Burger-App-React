@@ -2,10 +2,10 @@ import React from 'react';
 import classes from './Layout.module.css';
 
 const layout = (props) => (
-  <React.Fragment>
+  <div className={classes.Layout}>
     <div>Toolbar</div>
-    <main className={classes.Content}>{props.children}</main>
-  </React.Fragment>
+    <main>{props.children}</main>
+  </div>
 );
 
 export default layout;
