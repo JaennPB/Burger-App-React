@@ -74,6 +74,14 @@ class BurgerBuilder extends Component {
     this.setState({ startOrder: true });
   };
 
+  cancelOrderHandler = () => {
+    this.setState({ startOrder: false });
+  };
+
+  orderCheckoutHandler = () => {
+    alert('checking out');
+  };
+
   render() {
     const copyIngredientsObject = {
       ...this.state.ingredients,
@@ -86,8 +94,13 @@ class BurgerBuilder extends Component {
 
     return (
       <React.Fragment>
-        <Modal show={this.state.startOrder}>
-          <OrderSummary ingredients={this.state.ingredients} />
+        <Modal show={this.state.startOrder} hide={this.cancelOrderHandler}>
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            cancel={this.cancelOrderHandler}
+            checkout={this.orderCheckoutHandler}
+            total={this.state.totalPrice}
+          />
         </Modal>
         <Burger ingredientsObject={this.state.ingredients} />
         <BuildControls
