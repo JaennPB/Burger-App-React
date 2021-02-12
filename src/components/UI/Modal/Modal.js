@@ -8,8 +8,8 @@ const modal = (props) => {
       <Backdrop show={props.show} hideModal={props.hide} />
       <div
         style={{
-          transform: props.show ? 'translateY(0)' : 'traslateY(-100)',
           opacity: props.show ? '1' : '0',
+          visibility: props.show ? 'visible' : 'hidden',
         }}
         className={classes.Modal}
       >

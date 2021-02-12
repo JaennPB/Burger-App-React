@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../../UI/Button/Button';
+import classes from './OrderSummary.module.css';
 
 const orderSumarry = (props) => {
   const ingredientsSummary = Object.entries(props.ingredients).map((pair) => {
@@ -12,18 +13,19 @@ const orderSumarry = (props) => {
   });
 
   return (
-    <React.Fragment>
-      <h3>Your order</h3>
-      <ul>{ingredientsSummary}</ul>
-      <p>Continue to checkout?</p>
-      <div>Total Price: ${props.total.toFixed(2)}</div>
+    <div className={classes.OrderSummary}>
+      <h3 className={classes.Title}>Your order</h3>
+      <ul className={classes.Summary}>{ingredientsSummary}</ul>
+      <div className={classes.Total}>
+        Total Price: ${props.total.toFixed(2)}
+      </div>
       <Button btnType="Green" clicked={props.checkout}>
         Checkout
       </Button>
       <Button btnType="Red" clicked={props.cancel}>
         Cancel
       </Button>
-    </React.Fragment>
+    </div>
   );
 };
 

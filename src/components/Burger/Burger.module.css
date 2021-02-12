@@ -1,6 +1,6 @@
 .Burger {
   width: 100%;
-  height: 45rem;
+  height: 40rem;
   padding: 5rem 0;
   margin: 0 auto;
   overflow-y: scroll;
@@ -8,6 +8,13 @@
   text-align: center;
   font-weight: 700;
   font-size: 1.2rem;
+}
+
+.Text {
+  color: #5d675b;
+  font-size: 1.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
 }
 
 /* @media only screen and (min-width: 500px) and (min-height: 400px) {

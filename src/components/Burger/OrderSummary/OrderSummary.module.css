@@ -1,0 +1,19 @@
+.OrderSummary {
+  font-size: 1.7rem;
+}
+
+.Title {
+  font-size: 2.3rem;
+  letter-spacing: 0.3rem;
+  margin-bottom: 3rem;
+}
+
+.Summary {
+  list-style: none;
+}
+
+.Total {
+  font-size: 2rem;
+  margin-top: 1.2rem;
+  margin-bottom: 3rem;
+}

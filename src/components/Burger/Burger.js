@@ -17,7 +17,7 @@ const burger = (props) => {
   });
 
   if (ingredientsArray.flat().length === 0) {
-    ingredientsArray = <p>Please add ingredients!</p>;
+    ingredientsArray = <p className={classes.Text}>Please add ingredients!</p>;
   }
 
   return (

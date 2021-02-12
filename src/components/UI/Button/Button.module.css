@@ -5,20 +5,25 @@
   outline: none;
   cursor: pointer;
   font: inherit;
-  padding: 10px;
+  padding: 1rem 1.5rem;
   margin: 10px;
-  font-weight: bold;
-}
-
-.Button:first-of-type {
-  margin-left: 0;
-  padding-left: 0;
+  font-weight: 400;
+  font-size: 1.9rem;
+  border-radius: 10rem;
 }
 
 .Green {
-  color: #5c9210;
+  background-color: #abe188;
+}
+
+.Green:hover {
+  background-color: #b8f093;
 }
 
 .Red {
-  color: #944317;
+  background-color: #f78e69;
+}
+
+.Red:hover {
+  background-color: #fd9974;
 }
