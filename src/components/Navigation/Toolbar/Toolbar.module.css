@@ -5,10 +5,19 @@
   position: fixed;
   top: 0;
   left: 0;
-  padding: 0 2rem;
+  padding: 0 5rem;
   z-index: 90;
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.Toolbar nav {
+  width: 30%;
+  height: 100%;
+  /* background-color: red; */
+
+  display: flex;
   align-items: center;
 }
