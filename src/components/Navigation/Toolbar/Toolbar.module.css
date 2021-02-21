@@ -14,10 +14,44 @@
 }
 
 .Toolbar nav {
-  width: 30%;
+  flex: 0 0 30%;
   height: 100%;
-  /* background-color: red; */
+  width: 100%;
 
   display: flex;
-  align-items: center;
+}
+
+.AppLogo {
+  flex: 0 1 70%;
+
+  height: 80%;
+}
+
+.SideDrawerButton {
+  display: none;
+}
+
+@media only screen and (min-width: 1450px) {
+  .Toolbar nav {
+    flex: 0 0 20%;
+  }
+
+  .AppLogo {
+    flex: 0 1 80%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .Toolbar {
+    flex-direction: row;
+  }
+
+  .Toolbar nav {
+    display: none;
+  }
+
+  .SideDrawerButton {
+    display: block;
+    cursor: pointer;
+  }
 }

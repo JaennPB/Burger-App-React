@@ -5,7 +5,7 @@ import Backdrop from '../Backdrop/Backdrop';
 const modal = (props) => {
   return (
     <React.Fragment>
-      <Backdrop show={props.show} hideModal={props.hide} />
+      <Backdrop show={props.show} clicked={props.hide} />
       <div
         style={{
           opacity: props.show ? '1' : '0',
