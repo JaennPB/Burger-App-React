@@ -1,20 +1,21 @@
 .SideDrawer {
+  display: none;
   position: fixed;
   top: 0;
   right: 0;
-  width: 28rem;
+  width: 50%;
   height: 100%;
   z-index: 200;
   background-color: #f7ef99;
-  padding: 3.2rem 1.6rem;
   transition: transform 0.3s ease-in-out;
-
-  display: flex;
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (max-width: 700px) {
   .SideDrawer {
-    display: none;
+    display: block;
+  }
+  .SideDrawer nav {
+    height: 100%;
   }
 }
 

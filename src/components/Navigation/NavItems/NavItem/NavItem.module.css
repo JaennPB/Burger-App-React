@@ -1,21 +1,29 @@
 .NavItem {
-  display: flex;
-  align-items: center;
   height: 100%;
+  width: 100%;
+
+  display: flex;
 }
 
 .NavItem a {
   padding: 1rem 2rem;
   text-transform: uppercase;
   height: 100%;
+  width: 100%;
   font-size: 1.4rem;
   letter-spacing: 0.1rem;
   text-decoration: none;
   color: #fd9974;
 }
 
-.NavItem:hover,
-.NavItem:active,
+.NavItem a:hover,
+.NavItem a:active,
 .NavItem a.Active {
   background-color: #fffabf;
 }
+
+@media only screen and (max-width: 700px) {
+  .NavItem {
+    text-align: center;
+  }
+} ;

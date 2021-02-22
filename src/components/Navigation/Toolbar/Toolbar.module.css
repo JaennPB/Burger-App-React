@@ -50,8 +50,8 @@
     display: none;
   }
 
-  .SideDrawerButton {
+  /* .SideDrawerButton div {
     display: block;
     cursor: pointer;
-  }
+  } */
 }

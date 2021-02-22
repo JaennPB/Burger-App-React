@@ -13,9 +13,7 @@ const toolbar = (props) => (
     <nav>
       <NavItems />
     </nav>
-    <div className={classes.SideDrawerButton} onClick={props.buttonToggle}>
-      <SideDrawerButton />
-    </div>
+    <SideDrawerButton clicked={props.buttonToggle} />
   </header>
 );
 

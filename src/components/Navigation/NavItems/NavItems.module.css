@@ -1,16 +1,14 @@
 .NavItems {
-  list-style: none;
   height: 100%;
   width: 100%;
-  text-align: center;
 
   display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 @media only screen and (max-width: 700px) {
   .NavItems {
-    flex-direction: column;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
   }
 }
