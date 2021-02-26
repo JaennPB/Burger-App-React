@@ -25,5 +25,13 @@
 @media only screen and (max-width: 700px) {
   .NavItem {
     text-align: center;
+    height: auto;
+
+    align-items: center;
+    margin-bottom: 5rem;
+  }
+
+  .NavItem a {
+    font-size: 2rem;
   }
 } ;
