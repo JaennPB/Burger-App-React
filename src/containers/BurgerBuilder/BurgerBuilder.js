@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import axios from '../../axios-orders';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const INGREDIENTS_PRICE = {
   salad: 0.3,
@@ -23,6 +25,7 @@ class BurgerBuilder extends Component {
     totalPrice: 2,
     purchasable: false,
     startOrder: false,
+    loading: false,
   };
 
   updatePurchasableState = (ingredients) => {
@@ -78,8 +81,31 @@ class BurgerBuilder extends Component {
     this.setState({ startOrder: false });
   };
 
-  orderCheckoutHandler = () => {
-    alert('checking out');
+  orderCheckoutHandler = async () => {
+    this.setState({ loading: true });
+    const data = {
+      ingredients: this.state.ingredients,
+      totalPrice: this.state.totalPrice,
+      customer: {
+        name: 'Jaenn Poumian',
+        address: {
+          street: '101 Test Street',
+          city: 'Test City',
+          zipCode: '11100',
+          country: 'Mexico',
+        },
+      },
+      deliveryMethod: 'fastest',
+    };
+    try {
+      await axios.post('/orders.json', data).then((data) => {
+        console.log(data);
+        this.setState({ loading: false, startOrder: false });
+      });
+    } catch (err) {
+      console.log(err);
+      this.setState({ loading: false, startOrder: false });
+    }
   };
 
   render() {
@@ -92,15 +118,22 @@ class BurgerBuilder extends Component {
       copyIngredientsObject[key] = copyIngredientsObject[key] <= 0;
     }
 
+    let orderSummary = (
+      <OrderSummary
+        ingredients={this.state.ingredients}
+        cancel={this.cancelOrderHandler}
+        checkout={this.orderCheckoutHandler}
+        total={this.state.totalPrice}
+      />
+    );
+    if (this.state.loading) {
+      orderSummary = <Spinner />;
+    }
+
     return (
       <>
         <Modal show={this.state.startOrder} hide={this.cancelOrderHandler}>
-          <OrderSummary
-            ingredients={this.state.ingredients}
-            cancel={this.cancelOrderHandler}
-            checkout={this.orderCheckoutHandler}
-            total={this.state.totalPrice}
-          />
+          {orderSummary}
         </Modal>
         <Burger ingredientsObject={this.state.ingredients} />
         <BuildControls
