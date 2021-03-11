@@ -1,6 +1,6 @@
 .Container {
   width: 100%;
-  height: fit-content;
+  height: 50%;
   background-color: #f7ef99;
   padding: 2rem 0;
   color: #5d675b;
@@ -9,8 +9,12 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  text-align: center;
 }
 
+.Content {
+  height: 100%;
+}
 .OrderButton {
   background-color: #abe188;
   color: white;

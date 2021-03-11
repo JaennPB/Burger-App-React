@@ -1,6 +1,10 @@
-.BurgerContent {
+.WholeContainer {
   height: 100vh;
-  margin-top: 6vh;
+}
+
+.BurgerContent {
+  /* margin-top: 6vh; */
+  height: 100vh;
   background-color: #fffabf;
 
   display: flex;

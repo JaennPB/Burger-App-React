@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import classes from './BurgerBuilder.module.css';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -130,7 +131,7 @@ class BurgerBuilder extends Component {
 
     if (this.state.ingredients) {
       burger = (
-        <>
+        <div className={classes.BurgerBuilder}>
           <Burger ingredientsObject={this.state.ingredients} />
           <BuildControls
             addIngredients={this.addIngredientsHandler}
@@ -140,7 +141,7 @@ class BurgerBuilder extends Component {
             purchasableInfo={this.state.purchasable}
             orderNow={this.startOrderHandler}
           />
-        </>
+        </div>
       );
       orderSummary = (
         <OrderSummary

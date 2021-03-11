@@ -19,14 +19,17 @@ class Layout extends Component {
 
   render() {
     return (
-      <>
-        <Toolbar buttonToggle={this.openSideDrawerHandler} />
+      <div className={classes.WholeContainer}>
+        <Toolbar
+          className={classes.Toolbar}
+          buttonToggle={this.openSideDrawerHandler}
+        />
         <SideDrawer
           shouldShow={this.state.showSideDrawer}
           close={this.closeSideDrawerHandler}
         />
         <main className={classes.BurgerContent}>{this.props.children}</main>
-      </>
+      </div>
     );
   }
 }
