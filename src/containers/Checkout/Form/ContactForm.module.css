@@ -1,0 +1,32 @@
+.ContactForm {
+  height: 100%;
+  margin-top: 6vh;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fffabf;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  padding: 5rem;
+}
+
+.ContactForm form {
+  width: 70%;
+}
+
+.ContactForm input {
+  display: block;
+  width: 100%;
+  margin-bottom: 5rem;
+  padding: 1.5rem 2.5rem;
+  border-radius: 5rem;
+  border: none;
+}
+
+.ContactForm h4 {
+  font-size: 3rem;
+  color: #fd9974;
+  font-weight: 400;
+  margin-bottom: 5rem;
+}

@@ -5,6 +5,7 @@ import classes from './OrderSummary.module.css';
 
 const orderSummary = (props) => {
   const ingredientsSummary = Object.entries(props.ingredients).map((pair) => {
+    if (pair[1] === 0) return;
     return (
       <li key={pair[0]}>
         <span style={{ textTransform: 'capitalize' }}>{pair[0]}</span> X

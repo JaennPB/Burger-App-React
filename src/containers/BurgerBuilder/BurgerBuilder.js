@@ -27,6 +27,7 @@ class BurgerBuilder extends Component {
   };
 
   async componentDidMount() {
+    console.log(this.props);
     try {
       const res = await axios.get('/ingredients.json');
       this.setState({ ingredients: res.data });
@@ -90,30 +91,37 @@ class BurgerBuilder extends Component {
   };
 
   orderCheckoutHandler = async () => {
-    this.setState({ loading: true });
-    const data = {
-      ingredients: this.state.ingredients,
-      totalPrice: this.state.totalPrice,
-      customer: {
-        name: 'Jaenn Poumian',
-        address: {
-          street: '101 Test Street',
-          city: 'Test City',
-          zipCode: '11100',
-          country: 'Mexico',
-        },
-      },
-      deliveryMethod: 'fastest',
-    };
-    try {
-      await axios.post('/orders.json', data).then((data) => {
-        console.log(data);
-        this.setState({ loading: false, startOrder: false });
-      });
-    } catch (err) {
-      console.log(err);
-      this.setState({ loading: false, startOrder: false });
-    }
+    const ingredients = { ...this.state.ingredients };
+    const price = this.state.totalPrice;
+    this.props.history.push({
+      pathname: '/checkout',
+      state: { ingredients: ingredients, price: +price },
+    });
+
+    // this.setState({ loading: true });
+    // const data = {
+    //   ingredients: this.state.ingredients,
+    //   totalPrice: this.state.totalPrice,
+    //   customer: {
+    //     name: 'Jaenn Poumian',
+    //     address: {
+    //       street: '101 Test Street',
+    //       city: 'Test City',
+    //       zipCode: '11100',
+    //       country: 'Mexico',
+    //     },
+    //   },
+    //   deliveryMethod: 'fastest',
+    // };
+    // try {
+    //   await axios.post('/orders.json', data).then((data) => {
+    //     console.log(data);
+    //     this.setState({ loading: false, startOrder: false });
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    //   this.setState({ loading: false, startOrder: false });
+    // }
   };
 
   render() {
@@ -128,11 +136,9 @@ class BurgerBuilder extends Component {
 
     let burger = this.state.error ? 'CANNOT LOAD INGREDIENTS' : <Spinner />;
     let orderSummary = null;
-
     if (this.state.ingredients) {
       burger = (
         <div className={classes.BurgerBuilder}>
-          <Burger ingredientsObject={this.state.ingredients} />
           <BuildControls
             addIngredients={this.addIngredientsHandler}
             removeIngredients={this.removeIngredientsHandler}
@@ -141,6 +147,7 @@ class BurgerBuilder extends Component {
             purchasableInfo={this.state.purchasable}
             orderNow={this.startOrderHandler}
           />
+          <Burger ingredientsObject={this.state.ingredients} />
         </div>
       );
       orderSummary = (

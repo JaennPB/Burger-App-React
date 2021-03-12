@@ -1,22 +1,29 @@
 .Container {
-  width: 100%;
-  height: 50%;
+  width: 60%;
+  height: 100%;
   background-color: #f7ef99;
-  padding: 2rem 0;
+  border-top: 0.3rem solid #fd9974;
+  padding-top: 6vh;
   color: #5d675b;
   font-size: 1.5rem;
 
   display: flex;
   flex-flow: column;
   align-items: center;
-  text-align: center;
 }
 
 .Content {
   height: 100%;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 .OrderButton {
   background-color: #abe188;
+  width: 100%;
   color: white;
   outline: none;
   cursor: pointer;
@@ -25,7 +32,7 @@
   padding: 15px 30px;
   border-radius: 3rem;
   border: none;
-  margin-top: 2rem;
+  align-self: flex-end;
 }
 
 .OrderButton:hover,
@@ -57,5 +64,12 @@
 .Price {
   font-weight: 200;
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 3rem;
+}
+
+.Content h4 {
+  text-transform: uppercase;
+  font-size: 2rem;
+  letter-spacing: 0.2rem;
+  margin-bottom: 3rem;
 }
