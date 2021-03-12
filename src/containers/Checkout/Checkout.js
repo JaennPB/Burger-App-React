@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 
 import classes from './Checkout.module.css';
-import CheckoutSummary from '../../components/Order/CheckoutSummary';
+import CheckoutSummary from '../../components/Checkout/CheckoutSummary';
 import ContactForm from '../Checkout/Form/ContactForm';
 
 class Checkout extends Component {
@@ -37,7 +37,13 @@ class Checkout extends Component {
         />
         <Route
           path={`${this.props.match.path}/fill-data`}
-          component={ContactForm}
+          render={() => (
+            <ContactForm
+              ingredients={this.state.ingredients}
+              price={this.state.totalPrice}
+              {...this.props}
+            />
+          )}
         />
       </div>
     );

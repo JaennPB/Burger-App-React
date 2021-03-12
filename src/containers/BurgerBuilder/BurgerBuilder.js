@@ -18,7 +18,12 @@ const INGREDIENTS_PRICE = {
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: null,
+    ingredients: {
+      salad: null,
+      bacon: null,
+      cheese: null,
+      meat: null,
+    },
     totalPrice: 2,
     purchasable: false,
     startOrder: false,
@@ -30,7 +35,14 @@ class BurgerBuilder extends Component {
     console.log(this.props);
     try {
       const res = await axios.get('/ingredients.json');
-      this.setState({ ingredients: res.data });
+      this.setState({
+        ingredients: {
+          salad: res.data.salad,
+          bacon: res.data.bacon,
+          cheese: res.data.cheese,
+          meat: res.data.meat,
+        },
+      });
     } catch (error) {
       console.log('ERROR 💥', error);
       this.setState({ error: true });
@@ -97,31 +109,6 @@ class BurgerBuilder extends Component {
       pathname: '/checkout',
       state: { ingredients: ingredients, price: +price },
     });
-
-    // this.setState({ loading: true });
-    // const data = {
-    //   ingredients: this.state.ingredients,
-    //   totalPrice: this.state.totalPrice,
-    //   customer: {
-    //     name: 'Jaenn Poumian',
-    //     address: {
-    //       street: '101 Test Street',
-    //       city: 'Test City',
-    //       zipCode: '11100',
-    //       country: 'Mexico',
-    //     },
-    //   },
-    //   deliveryMethod: 'fastest',
-    // };
-    // try {
-    //   await axios.post('/orders.json', data).then((data) => {
-    //     console.log(data);
-    //     this.setState({ loading: false, startOrder: false });
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    //   this.setState({ loading: false, startOrder: false });
-    // }
   };
 
   render() {
