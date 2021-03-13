@@ -5,18 +5,67 @@ import axios from '../../../axios-orders';
 
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Form/Input/Input';
 
 class ContactForm extends Component {
   state = {
     contactInfo: {
-      name: '',
-      email: '',
-      address: {
-        street: '',
-        city: '',
-        zipCode: '',
+      name: {
+        elementType: 'input',
+        value: '',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Your Full Name',
+        },
       },
-      deliveryMethod: '',
+      email: {
+        elementType: 'input',
+        value: '',
+        elementConfig: {
+          type: 'email',
+          placeholder: 'Your E-Mail',
+        },
+      },
+      street: {
+        elementType: 'input',
+        value: '',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'Street and Number',
+        },
+      },
+      city: {
+        elementType: 'input',
+        value: '',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'City',
+        },
+      },
+      zipCode: {
+        elementType: 'input',
+        value: '',
+        elementConfig: {
+          type: 'Number',
+          placeholder: 'Zip Code',
+        },
+      },
+      deliveryMethod: {
+        elementType: 'select',
+        value: '',
+        elementConfig: {
+          options: [
+            {
+              value: 'delivery',
+              displayValue: 'Delivery',
+            },
+            {
+              value: 'pickup',
+              displayValue: 'Pickup',
+            },
+          ],
+        },
+      },
     },
     ingredients: null,
     totalPrice: null,
@@ -35,16 +84,6 @@ class ContactForm extends Component {
     const data = {
       ingredients: this.props.ingredients,
       totalPrice: this.props.price,
-      contactInfo: {
-        name: 'Jaenn Poumian',
-        email: 'test@gmail.com',
-        address: {
-          street: '101 Test Street',
-          city: 'Celaya',
-          zipCode: '38090',
-        },
-        deliveryMethod: 'Delivery',
-      },
     };
     try {
       await axios.post('/orders.json', data).then((data) => {
@@ -59,14 +98,43 @@ class ContactForm extends Component {
     }
   };
 
+  changeInputValueHandler = (event, element) => {
+    const copyOfFormObject = {
+      ...this.state.contactInfo,
+    };
+    const copyOfElementObject = {
+      ...copyOfFormObject[element],
+    };
+    copyOfElementObject.value = event.target.value;
+    copyOfFormObject[element] = copyOfElementObject;
+    this.setState({ contactInfo: copyOfFormObject });
+  };
+
   render() {
+    const formArray = [];
+    const formObject = this.state.contactInfo;
+
+    for (let key in formObject) {
+      formArray.push({
+        key: key,
+        config: formObject[key],
+      });
+    }
+
     let form = (
       <form>
         <h4>Enter Contact Data</h4>
-        <input type="text" name="name" placeholder="Your Full Name"></input>
-        <input type="email" name="email" placeholder="Your email"></input>
-        <input type="text" name="street" placeholder="Street"></input>
-        <input type="number" name="postal" placeholder="Postal Code"></input>
+        {formArray.map((el) => {
+          return (
+            <Input
+              key={el.key}
+              elementType={el.config.elementType}
+              elementConfig={el.config.elementConfig}
+              value={el.config.value}
+              clicked={(event) => this.changeInputValueHandler(event, el.key)}
+            />
+          );
+        })}
         <Button btnType="Green" clicked={this.orderHandler}>
           Order Now!
         </Button>

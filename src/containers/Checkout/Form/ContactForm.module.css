@@ -15,15 +15,6 @@
   width: 70%;
 }
 
-.ContactForm input {
-  display: block;
-  width: 100%;
-  margin-bottom: 5rem;
-  padding: 1.5rem 2.5rem;
-  border-radius: 5rem;
-  border: none;
-}
-
 .ContactForm h4 {
   font-size: 3rem;
   color: #fd9974;
