@@ -1,0 +1,9 @@
+.Orders {
+  height: 94vh;
+  margin-top: 6vh;
+  padding: 3rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

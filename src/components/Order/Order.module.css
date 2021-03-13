@@ -1,0 +1,26 @@
+.Order {
+  width: 80%;
+  height: fit-content;
+  margin-bottom: 5rem;
+  padding: 2rem 3rem;
+  border-radius: 2rem;
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.2);
+  background-color: #f7ef99;
+}
+
+.Order h4 {
+  color: #fd9974;
+  font-weight: 400;
+  font-size: 2rem;
+}
+
+.Order section {
+  margin: 2rem;
+  display: flex;
+
+  justify-content: space-around;
+}
+
+.Price {
+  font-size: 1.3rem;
+}
