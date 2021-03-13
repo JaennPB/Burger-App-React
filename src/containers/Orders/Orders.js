@@ -6,7 +6,6 @@ import classes from './Orders.module.css';
 
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Order from '../../components/Order/Order';
-import spinner from '../../components/UI/Spinner/Spinner';
 
 class Orders extends Component {
   state = {
@@ -17,7 +16,7 @@ class Orders extends Component {
   async componentDidMount() {
     try {
       const res = await axios.get('/orders.json');
-      console.log(res.data);
+      // console.log(res.data);
 
       const fetchedOrders = [];
       for (let key in res.data) {
@@ -25,7 +24,7 @@ class Orders extends Component {
       }
       this.setState({ orders: fetchedOrders, loading: false });
 
-      console.log(this.state.orders);
+      // console.log(this.state.orders);
     } catch (err) {
       this.setState({ loading: false });
     }
@@ -34,7 +33,17 @@ class Orders extends Component {
   render() {
     let orders = <Spinner />;
     if (!this.state.loading) {
-      orders = <Order />;
+      orders = this.state.orders.map((order) => {
+        return (
+          <Order
+            key={order.key}
+            orderNo={order.key}
+            price={order.totalPrice.toFixed(2)}
+            ingredients={order.ingredients}
+            info={order.contactInfo}
+          />
+        );
+      });
     }
     return <div className={classes.Orders}>{orders}</div>;
   }

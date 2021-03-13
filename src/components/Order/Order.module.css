@@ -15,12 +15,58 @@
 }
 
 .Order section {
-  margin: 2rem;
+  margin: 2.1rem;
   display: flex;
 
   justify-content: space-around;
 }
 
 .Price {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  background-color: #fffabf;
+  width: fit-content;
+  padding: 0.6rem 1.1rem;
+  border-radius: 2rem;
+}
+
+.Price span {
+  font-size: 1.5rem;
+  color: #abe188;
+  font-weight: bold;
+}
+
+.Ingredients p {
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 2px solid #fd9974;
+}
+
+.Ingredients ul {
+  list-style: none;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+}
+
+.Info p {
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 2px solid #fd9974;
+}
+
+.Info span {
+  display: block;
+  font-size: 1.4rem;
+}
+
+.Info ul {
+  list-style: none;
+}
+
+.Info div {
+  font-size: 1.4rem;
+  margin-top: 1rem;
+}
+
+.Method {
+  margin-top: 1rem;
 }

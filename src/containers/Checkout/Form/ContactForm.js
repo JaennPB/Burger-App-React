@@ -29,29 +29,29 @@ class ContactForm extends Component {
 
   orderHandler = async (e) => {
     e.preventDefault();
-    console.log(this.props.ingredients, this.props.price);
+    // console.log(this.props.ingredients, this.props.price);
 
     this.setState({ loading: true });
     const data = {
       ingredients: this.props.ingredients,
       totalPrice: this.props.price,
       contactInfo: {
-        name: 'NEW TEST Jaenn Poumian',
+        name: 'Jaenn Poumian',
         email: 'test@gmail.com',
         address: {
           street: '101 Test Street',
-          city: 'Test City',
-          zipCode: '11100',
+          city: 'Celaya',
+          zipCode: '38090',
         },
-        deliveryMethod: 'fastest',
+        deliveryMethod: 'Delivery',
       },
     };
     try {
       await axios.post('/orders.json', data).then((data) => {
-        console.log(data);
+        // console.log(data);
         this.setState({ loading: false });
 
-        this.props.history.replace('/');
+        this.props.history.replace('/orders');
       });
     } catch (err) {
       console.log(err);
@@ -68,7 +68,7 @@ class ContactForm extends Component {
         <input type="text" name="street" placeholder="Street"></input>
         <input type="number" name="postal" placeholder="Postal Code"></input>
         <Button btnType="Green" clicked={this.orderHandler}>
-          Submit Order!
+          Order Now!
         </Button>
       </form>
     );

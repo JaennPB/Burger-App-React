@@ -32,7 +32,7 @@ class BurgerBuilder extends Component {
   };
 
   async componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     try {
       const res = await axios.get('/ingredients.json');
       this.setState({
