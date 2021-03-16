@@ -27,3 +27,9 @@
 .Red:hover {
   background-color: #fd9974;
 }
+
+.Button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+

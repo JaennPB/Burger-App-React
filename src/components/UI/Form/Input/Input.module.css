@@ -30,3 +30,9 @@
 .Valid {
   border: .3rem solid #abe188;
 }
+
+.ErrorMessage {
+  text-align: left;
+  padding-left: 2.8rem;
+  margin-top: 0.2rem;
+}

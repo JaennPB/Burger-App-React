@@ -19,6 +19,10 @@ class ContactForm extends Component {
         },
         validationRules: {
           required: true,
+          length: {
+            minLength: 2,
+            maxLength: 30,
+          },
         },
         isValid: false,
         touched: false,
@@ -32,6 +36,10 @@ class ContactForm extends Component {
         },
         validationRules: {
           required: true,
+          length: {
+            minLength: '123@gmail.com'.length,
+            maxLength: '123@gmail.com'.length + 30,
+          },
         },
         isValid: false,
         touched: false,
@@ -45,6 +53,10 @@ class ContactForm extends Component {
         },
         validationRules: {
           required: true,
+          length: {
+            minLength: 5,
+            maxLength: 30,
+          },
         },
         isValid: false,
         touched: false,
@@ -58,6 +70,10 @@ class ContactForm extends Component {
         },
         validationRules: {
           required: true,
+          length: {
+            minLength: 5,
+            maxLength: 20,
+          },
         },
         isValid: false,
         touched: false,
@@ -94,11 +110,14 @@ class ContactForm extends Component {
             },
           ],
         },
+        isValid: true,
+        touched: false,
       },
     },
     ingredients: null,
     totalPrice: null,
     loading: false,
+    formIsValid: false,
   };
 
   componentDidMount() {
@@ -136,6 +155,8 @@ class ContactForm extends Component {
   checkValidation = (value, rules) => {
     let valid = true;
 
+    if (!rules) return true;
+
     if (rules.required) {
       valid = value.trim() !== '' && valid;
     }
@@ -164,8 +185,14 @@ class ContactForm extends Component {
     );
     elementObject.touched = true;
     formObject[element] = elementObject;
-    console.log(elementObject);
-    this.setState({ contactInfo: formObject });
+    // console.log(elementObject);
+
+    // checking that all previous fields are also valid
+    let formIsValid = true;
+    for (let element in formObject) {
+      formIsValid = formObject[element].isValid && formIsValid;
+    }
+    this.setState({ contactInfo: formObject, formIsValid: formIsValid });
   };
 
   render() {
@@ -188,6 +215,7 @@ class ContactForm extends Component {
               key={el.key}
               elementType={el.config.elementType}
               elementConfig={el.config.elementConfig}
+              type={el.config.elementConfig.placeholder}
               valid={el.config.isValid}
               shouldValidate={el.config.validationRules}
               touched={el.config.touched}
@@ -196,7 +224,13 @@ class ContactForm extends Component {
             />
           );
         })}
-        <Button btnType="Green">Order Now!</Button>
+        <Button
+          btnType="Green"
+          disabled={!this.state.formIsValid}
+          className={classes.Button}
+        >
+          Order Now!
+        </Button>
       </form>
     );
     if (this.state.loading) {

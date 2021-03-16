@@ -10,8 +10,18 @@ const input = (props) => {
     inputClasses.push(classes.Invalid);
   }
 
-  if (props.valid) {
+  if (props.valid && props.touched) {
     inputClasses.push(classes.Valid);
+  }
+
+  let errorMesage = null;
+
+  if (!props.valid && props.touched) {
+    errorMesage = (
+      <p className={classes.ErrorMessage}>
+        Please enter a valid value: {props.type}
+      </p>
+    );
   }
 
   if (props.elementType === 'input')
@@ -42,6 +52,7 @@ const input = (props) => {
     <div className={classes.Input}>
       <label className={classes.Label}>{props.label}</label>
       {inputElement}
+      {errorMesage}
     </div>
   );
 };
