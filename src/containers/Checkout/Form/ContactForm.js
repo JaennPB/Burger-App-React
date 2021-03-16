@@ -17,6 +17,11 @@ class ContactForm extends Component {
           type: 'text',
           placeholder: 'Your Full Name',
         },
+        validationRules: {
+          required: true,
+        },
+        isValid: false,
+        touched: false,
       },
       email: {
         elementType: 'input',
@@ -25,6 +30,11 @@ class ContactForm extends Component {
           type: 'email',
           placeholder: 'Your E-Mail',
         },
+        validationRules: {
+          required: true,
+        },
+        isValid: false,
+        touched: false,
       },
       street: {
         elementType: 'input',
@@ -33,6 +43,11 @@ class ContactForm extends Component {
           type: 'text',
           placeholder: 'Street and Number',
         },
+        validationRules: {
+          required: true,
+        },
+        isValid: false,
+        touched: false,
       },
       city: {
         elementType: 'input',
@@ -41,6 +56,11 @@ class ContactForm extends Component {
           type: 'text',
           placeholder: 'City',
         },
+        validationRules: {
+          required: true,
+        },
+        isValid: false,
+        touched: false,
       },
       zipCode: {
         elementType: 'input',
@@ -49,6 +69,15 @@ class ContactForm extends Component {
           type: 'Number',
           placeholder: 'Zip Code',
         },
+        validationRules: {
+          required: true,
+          length: {
+            minLength: 5,
+            maxLength: 5,
+          },
+        },
+        isValid: false,
+        touched: false,
       },
       deliveryMethod: {
         elementType: 'select',
@@ -79,11 +108,17 @@ class ContactForm extends Component {
   orderHandler = async (e) => {
     e.preventDefault();
     // console.log(this.props.ingredients, this.props.price);
-
     this.setState({ loading: true });
+
+    const formData = {};
+    for (let ElementID in this.state.contactInfo) {
+      formData[ElementID] = this.state.contactInfo[ElementID].value;
+    }
+
     const data = {
       ingredients: this.props.ingredients,
       totalPrice: this.props.price,
+      contactInfo: formData,
     };
     try {
       await axios.post('/orders.json', data).then((data) => {
@@ -98,16 +133,39 @@ class ContactForm extends Component {
     }
   };
 
+  checkValidation = (value, rules) => {
+    let valid = true;
+
+    if (rules.required) {
+      valid = value.trim() !== '' && valid;
+    }
+
+    if (rules.length) {
+      valid =
+        value.length >= rules.length.minLength &&
+        value.length <= rules.length.maxLength &&
+        valid;
+    }
+
+    return valid;
+  };
+
   changeInputValueHandler = (event, element) => {
-    const copyOfFormObject = {
+    const formObject = {
       ...this.state.contactInfo,
     };
-    const copyOfElementObject = {
-      ...copyOfFormObject[element],
+    const elementObject = {
+      ...formObject[element],
     };
-    copyOfElementObject.value = event.target.value;
-    copyOfFormObject[element] = copyOfElementObject;
-    this.setState({ contactInfo: copyOfFormObject });
+    elementObject.value = event.target.value;
+    elementObject.isValid = this.checkValidation(
+      elementObject.value,
+      elementObject.validationRules
+    );
+    elementObject.touched = true;
+    formObject[element] = elementObject;
+    console.log(elementObject);
+    this.setState({ contactInfo: formObject });
   };
 
   render() {
@@ -122,7 +180,7 @@ class ContactForm extends Component {
     }
 
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         <h4>Enter Contact Data</h4>
         {formArray.map((el) => {
           return (
@@ -130,14 +188,15 @@ class ContactForm extends Component {
               key={el.key}
               elementType={el.config.elementType}
               elementConfig={el.config.elementConfig}
+              valid={el.config.isValid}
+              shouldValidate={el.config.validationRules}
+              touched={el.config.touched}
               value={el.config.value}
               clicked={(event) => this.changeInputValueHandler(event, el.key)}
             />
           );
         })}
-        <Button btnType="Green" clicked={this.orderHandler}>
-          Order Now!
-        </Button>
+        <Button btnType="Green">Order Now!</Button>
       </form>
     );
     if (this.state.loading) {

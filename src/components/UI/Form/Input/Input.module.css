@@ -22,3 +22,11 @@
   outline: none;
   padding: 1.5rem 2.5rem;
 }
+
+.Invalid {
+  border: .3rem solid #f78e69;
+}
+
+.Valid {
+  border: .3rem solid #abe188;
+}

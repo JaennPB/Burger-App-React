@@ -4,11 +4,20 @@ import classes from './Input.module.css';
 
 const input = (props) => {
   let inputElement = null;
+  let inputClasses = [classes.InputElement];
+
+  if (!props.valid && props.shouldValidate && props.touched) {
+    inputClasses.push(classes.Invalid);
+  }
+
+  if (props.valid) {
+    inputClasses.push(classes.Valid);
+  }
 
   if (props.elementType === 'input')
     inputElement = (
       <input
-        className={classes.InputElement}
+        className={inputClasses.join(' ')}
         {...props.elementConfig}
         value={props.value}
         onChange={props.clicked}
@@ -17,7 +26,7 @@ const input = (props) => {
   if (props.elementType === 'select')
     inputElement = (
       <select
-        className={classes.InputElement}
+        className={inputClasses.join(' ')}
         value={props.value}
         onChange={props.clicked}
       >

@@ -31,9 +31,9 @@ const order = (props) => {
           <div>
             Delivery address:
             <ul>
-              <li>{props.info.address.street}</li>
-              <li>{props.info.address.city}</li>
-              <li>{props.info.address.zipCode}</li>
+              <li>{props.info.street}</li>
+              <li>{props.info.city}</li>
+              <li>{props.info.zipCode}</li>
             </ul>
           </div>
           <span className={classes.Method}>

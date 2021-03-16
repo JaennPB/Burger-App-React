@@ -23,10 +23,9 @@ class Orders extends Component {
         fetchedOrders.push({ ...res.data[key], key: key });
       }
       this.setState({ orders: fetchedOrders, loading: false });
-
-      // console.log(this.state.orders);
     } catch (err) {
       this.setState({ loading: false });
+      // console.log(this.state.orders);
     }
   }
 
