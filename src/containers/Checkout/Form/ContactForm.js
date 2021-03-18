@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import classes from './ContactForm.module.css';
 import { animateScroll } from 'react-scroll';
-import axios from '../../../axios-orders';
+import { connect } from 'react-redux';
 
+import classes from './ContactForm.module.css';
+import axios from '../../../axios-orders';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Form/Input/Input';
@@ -114,8 +115,6 @@ class ContactForm extends Component {
         touched: false,
       },
     },
-    ingredients: null,
-    totalPrice: null,
     loading: false,
     formIsValid: false,
   };
@@ -135,7 +134,7 @@ class ContactForm extends Component {
     }
 
     const data = {
-      ingredients: this.props.ingredients,
+      ingredients: this.props.ings,
       totalPrice: this.props.price,
       contactInfo: formData,
     };
@@ -241,4 +240,11 @@ class ContactForm extends Component {
   }
 }
 
-export default ContactForm;
+const mapStateToProps = (state) => {
+  return {
+    ings: state.ingredients,
+    price: state.totalPrice,
+  };
+};
+
+export default connect(mapStateToProps)(ContactForm);

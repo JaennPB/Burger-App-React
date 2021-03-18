@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
+import { connect } from 'react-redux';
 
 import classes from './Checkout.module.css';
 import CheckoutSummary from '../../components/Checkout/CheckoutSummary';
 import ContactForm from '../Checkout/Form/ContactForm';
 
 class Checkout extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ingredients: this.props.location.state.ingredients,
-      totalPrice: this.props.location.state.price,
-    };
-  }
-
-  componentDidMount() {
-    // console.log(this.props);
-  }
-
   continueCheckoutHandler = () => {
     this.props.history.replace('/checkout/fill-data');
   };
@@ -30,24 +19,25 @@ class Checkout extends Component {
     return (
       <div className={classes.Container}>
         <CheckoutSummary
-          ingredients={this.state.ingredients}
+          ingredients={this.props.ings}
           continueCheckout={this.continueCheckoutHandler}
           cancelCheckout={this.cancelCheckoutHandler}
-          price={this.state.totalPrice}
+          price={this.props.price}
         />
         <Route
           path={`${this.props.match.path}/fill-data`}
-          render={() => (
-            <ContactForm
-              ingredients={this.state.ingredients}
-              price={this.state.totalPrice}
-              {...this.props}
-            />
-          )}
+          component={ContactForm}
         />
       </div>
     );
   }
 }
 
-export default Checkout;
+const mapStateToProps = (state) => {
+  return {
+    ings: state.ingredients,
+    price: state.totalPrice,
+  };
+};
+
+export default connect(mapStateToProps)(Checkout);
