@@ -2,14 +2,37 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
 
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import reducer from './store/reducer';
+import burgerBuilderReducer from './store/reducers/burgerBuilderReducer';
+import submitOrderReducer from './store/reducers/submitOrderReducer';
 
-const store = createStore(reducer);
+const logger = (store) => {
+  return (next) => {
+    return (action) => {
+      console.log('[Middleware] Dispatching...', action);
+      const result = next(action);
+      console.log('[Middleware] Next state:', store.getState());
+      return result;
+    };
+  };
+};
+
+// const rootReducer = combineReducers({
+//   burgerBuilder: burgerBuilderReducer,
+//   submitOrder: submitOrderReducer,
+// });
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  burgerBuilderReducer,
+  composeEnhancers(applyMiddleware(thunk, logger))
+);
 
 const app = (
   <Provider store={store}>
