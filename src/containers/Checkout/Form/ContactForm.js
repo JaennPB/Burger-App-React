@@ -3,10 +3,12 @@ import { animateScroll } from 'react-scroll';
 import { connect } from 'react-redux';
 
 import classes from './ContactForm.module.css';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../../axios-orders';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Form/Input/Input';
+import * as actions from '../../../store/actions/indexActions';
 
 class ContactForm extends Component {
   state = {
@@ -98,15 +100,15 @@ class ContactForm extends Component {
       },
       deliveryMethod: {
         elementType: 'select',
-        value: '',
+        value: 'Delivery',
         elementConfig: {
           options: [
             {
-              value: 'delivery',
+              value: 'Delivery',
               displayValue: 'Delivery',
             },
             {
-              value: 'pickup',
+              value: 'Pickup',
               displayValue: 'Pickup',
             },
           ],
@@ -115,7 +117,6 @@ class ContactForm extends Component {
         touched: false,
       },
     },
-    loading: false,
     formIsValid: false,
   };
 
@@ -123,32 +124,21 @@ class ContactForm extends Component {
     animateScroll.scrollToBottom();
   }
 
-  orderHandler = async (e) => {
+  orderHandler = (e) => {
     e.preventDefault();
-    // console.log(this.props.ingredients, this.props.price);
-    this.setState({ loading: true });
 
     const formData = {};
     for (let ElementID in this.state.contactInfo) {
       formData[ElementID] = this.state.contactInfo[ElementID].value;
     }
 
-    const data = {
+    const orderData = {
       ingredients: this.props.ings,
       totalPrice: this.props.price,
       contactInfo: formData,
     };
-    try {
-      await axios.post('/orders.json', data).then((data) => {
-        // console.log(data);
-        this.setState({ loading: false });
 
-        this.props.history.replace('/orders');
-      });
-    } catch (err) {
-      console.log(err);
-      this.setState({ loading: false });
-    }
+    this.props.asyncOrderStart(orderData);
   };
 
   checkValidation = (value, rules) => {
@@ -232,7 +222,7 @@ class ContactForm extends Component {
         </Button>
       </form>
     );
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
 
@@ -242,9 +232,15 @@ class ContactForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice,
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    loading: state.submitOrder.loading,
   };
 };
 
-export default connect(mapStateToProps)(ContactForm);
+const mapDispatchToProps = actions;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(ContactForm, axios));

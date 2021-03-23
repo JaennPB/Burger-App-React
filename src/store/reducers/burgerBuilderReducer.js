@@ -44,6 +44,7 @@ const burgerBuilderReducer = (state = initialState, actions) => {
           cheese: actions.ingredients.cheese,
           meat: actions.ingredients.meat,
         },
+        totalPrice: 4,
         error: false,
       });
     case actionTypes.ERROR_INGREDIENTS:

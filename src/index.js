@@ -22,15 +22,15 @@ const logger = (store) => {
   };
 };
 
-// const rootReducer = combineReducers({
-//   burgerBuilder: burgerBuilderReducer,
-//   submitOrder: submitOrderReducer,
-// });
+const rootReducer = combineReducers({
+  burgerBuilder: burgerBuilderReducer,
+  submitOrder: submitOrderReducer,
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  burgerBuilderReducer,
+  rootReducer,
   composeEnhancers(applyMiddleware(thunk, logger))
 );
 
