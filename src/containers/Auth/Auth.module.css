@@ -1,0 +1,21 @@
+.Auth {
+  width: 70%;
+  height: auto;
+  background-color: #f7ef99;
+  box-shadow: 0.1rem 0.1rem 1rem rgba(0, 0, 0, 0.2);
+  border-radius: 2rem;
+  padding: 2rem 3rem;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.Auth h4 {
+  font-size: 2rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 2rem;
+}

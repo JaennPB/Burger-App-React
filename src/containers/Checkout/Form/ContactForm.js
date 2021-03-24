@@ -43,6 +43,7 @@ class ContactForm extends Component {
             minLength: '123@gmail.com'.length,
             maxLength: '123@gmail.com'.length + 30,
           },
+          isEmail: true,
         },
         isValid: false,
         touched: false,
@@ -94,6 +95,7 @@ class ContactForm extends Component {
             minLength: 5,
             maxLength: 5,
           },
+          isNumeric: true,
         },
         isValid: false,
         touched: false,
@@ -151,10 +153,17 @@ class ContactForm extends Component {
     }
 
     if (rules.length) {
-      valid =
-        value.length >= rules.length.minLength &&
-        value.length <= rules.length.maxLength &&
-        valid;
+      valid = value.length >= rules.length.minLength && value.length <= rules.length.maxLength && valid;
+    }
+
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      valid = pattern.test(value) && valid;
+    }
+
+    if (rules.isNumeric) {
+      const pattern = /^\d+$/;
+      valid = pattern.test(value) && valid;
     }
 
     return valid;
@@ -168,10 +177,7 @@ class ContactForm extends Component {
       ...formObject[element],
     };
     elementObject.value = event.target.value;
-    elementObject.isValid = this.checkValidation(
-      elementObject.value,
-      elementObject.validationRules
-    );
+    elementObject.isValid = this.checkValidation(elementObject.value, elementObject.validationRules);
     elementObject.touched = true;
     formObject[element] = elementObject;
     // console.log(elementObject);
@@ -213,11 +219,7 @@ class ContactForm extends Component {
             />
           );
         })}
-        <Button
-          btnType="Green"
-          disabled={!this.state.formIsValid}
-          className={classes.Button}
-        >
+        <Button btnType="Green" disabled={!this.state.formIsValid} className={classes.Button}>
           Order Now!
         </Button>
       </form>
@@ -240,7 +242,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = actions;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withErrorHandler(ContactForm, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactForm, axios));

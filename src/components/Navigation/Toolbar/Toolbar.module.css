@@ -14,11 +14,15 @@
 }
 
 .Toolbar nav {
-  flex: 0 0 30%;
+  flex: 0 0 50%;
   height: 100%;
   width: 100%;
 
   display: flex;
+}
+
+.Toolbar ul {
+  justify-content: flex-end;
 }
 
 .AppLogo {
