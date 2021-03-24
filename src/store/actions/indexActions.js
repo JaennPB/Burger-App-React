@@ -3,4 +3,8 @@ export {
   removeIngredient,
   asyncFetchIngredients,
 } from './burgerBuilderActions';
-export { asyncOrderStart, orderStartRedirect } from './submitOrderActions';
+export {
+  asyncOrderStart,
+  orderStartRedirect,
+  asyncGetOrders,
+} from './orderActions';

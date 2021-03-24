@@ -9,7 +9,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import burgerBuilderReducer from './store/reducers/burgerBuilderReducer';
-import submitOrderReducer from './store/reducers/submitOrderReducer';
+import orderReducer from './store/reducers/orderReducer';
 
 const logger = (store) => {
   return (next) => {
@@ -24,7 +24,7 @@ const logger = (store) => {
 
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilderReducer,
-  submitOrder: submitOrderReducer,
+  orders: orderReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

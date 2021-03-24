@@ -45,7 +45,7 @@ const mapStateToProps = (state) => {
   return {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
-    purchased: state.submitOrder.purchased,
+    purchased: state.orders.purchased,
   };
 };
 
