@@ -10,6 +10,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import burgerBuilderReducer from './store/reducers/burgerBuilderReducer';
 import orderReducer from './store/reducers/orderReducer';
+import authReducer from './store/reducers/authReducer';
 
 const logger = (store) => {
   return (next) => {
@@ -25,14 +26,12 @@ const logger = (store) => {
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilderReducer,
   orders: orderReducer,
+  auth: authReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk, logger))
-);
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, logger)));
 
 const app = (
   <Provider store={store}>
@@ -42,10 +41,7 @@ const app = (
   </Provider>
 );
 
-ReactDOM.render(
-  <React.StrictMode>{app}</React.StrictMode>,
-  document.getElementById('root')
-);
+ReactDOM.render(<React.StrictMode>{app}</React.StrictMode>, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

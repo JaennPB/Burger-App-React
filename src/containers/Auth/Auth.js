@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Form/Input/Input';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.module.css';
+import * as actions from '../../store/actions/indexActions';
 
 class Auth extends Component {
   state = {
@@ -43,6 +46,7 @@ class Auth extends Component {
         touched: false,
       },
     },
+    signUp: true,
   };
 
   checkValidation = (value, rules) => {
@@ -80,6 +84,21 @@ class Auth extends Component {
     this.setState({ contactInfo: formObject });
   };
 
+  startAuthHandler = (e) => {
+    e.preventDefault();
+    this.props.asyncAuthentication(
+      this.state.contactInfo.email.value,
+      this.state.contactInfo.password.value,
+      this.state.signUp
+    );
+  };
+
+  switchAuthMode = () => {
+    this.setState((prevState) => {
+      return { signUp: !prevState.signUp };
+    });
+  };
+
   render() {
     const formArray = [];
     const formObject = this.state.contactInfo;
@@ -91,10 +110,10 @@ class Auth extends Component {
       });
     }
 
-    return (
-      <div className={classes.Auth}>
-        <form>
-          <h4>Enter email and password</h4>
+    let authSection = (
+      <>
+        <form onSubmit={this.startAuthHandler}>
+          <h4>{this.state.signUp ? 'Enter your info to Sign Up!' : 'Welcome back!'}</h4>
           {formArray.map((el) => {
             return (
               <Input
@@ -111,12 +130,48 @@ class Auth extends Component {
             );
           })}
           <Button btnType="Green" className={classes.Button}>
-            LOG IN!
+            {this.state.signUp ? 'Sign Up!' : 'Login!'}
           </Button>
         </form>
+        <Button clicked={this.switchAuthMode} btnType="Red">
+          Switch to {this.state.signUp ? 'Log In' : 'Sign Up'}
+        </Button>
+      </>
+    );
+
+    if (this.props.loading) {
+      authSection = <Spinner />;
+    }
+
+    let errorMessage = null;
+    if (this.props.error && this.props.error.message === 'INVALID_PASSWORD') {
+      errorMessage = <p className={classes.ErrorMessage}>INVALID PASSWORD!</p>;
+    } else if (this.props.error && this.props.error.message === 'EMAIL_EXISTS') {
+      errorMessage = <p className={classes.ErrorMessage}>USER ALREADY EXISTS! PLEASE LOGIN INSTEAD</p>;
+    } else if (this.props.error && this.props.error.message === 'INVALID_EMAIL') {
+      errorMessage = <p className={classes.ErrorMessage}>PLEASE ENTER YOUR CREDENTIALS</p>;
+    } else if (this.props.error && this.props.error.message === 'EMAIL_NOT_FOUND') {
+      errorMessage = <p className={classes.ErrorMessage}>USER NOT FOUND! PLEASE SIGN UP INSTEAD!</p>;
+    } else if (this.props.error) {
+      errorMessage = <p className={classes.ErrorMessage}>{this.props.error.message}</p>;
+    }
+
+    return (
+      <div className={classes.Auth}>
+        {authSection}
+        {errorMessage}
       </div>
     );
   }
 }
 
-export default Auth;
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+  };
+};
+
+const mapDispatchToProps = actions;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

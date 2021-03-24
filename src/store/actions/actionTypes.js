@@ -14,3 +14,9 @@ export const ORDER_ERROR = 'ORDER_ERROR';
 export const GET_ORDER_LOADING = 'GET_ORDER_LOADING';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_ERROR = 'GET_ORDER_ERROR';
+
+// ==================================================== AUTH
+export const AUTH_LOADING = 'AUTH_LOADING';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const AUTH_ERROR = 'AUTH_ERROR';

@@ -1,10 +1,3 @@
-export {
-  addIngredient,
-  removeIngredient,
-  asyncFetchIngredients,
-} from './burgerBuilderActions';
-export {
-  asyncOrderStart,
-  orderStartRedirect,
-  asyncGetOrders,
-} from './orderActions';
+export { addIngredient, removeIngredient, asyncFetchIngredients } from './burgerBuilderActions';
+export { asyncOrderStart, orderStartRedirect, asyncGetOrders } from './orderActions';
+export { asyncAuthentication } from './AuthActions';
