@@ -1,5 +1,4 @@
 import axios from 'axios';
-import authReducer from '../reducers/authReducer';
 
 import * as actionTypes from './actionTypes';
 
@@ -24,7 +23,7 @@ const authError = (err) => {
   };
 };
 
-const authLogout = () => {
+export const authLogout = () => {
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
@@ -38,7 +37,7 @@ const asyncSetTimerLogout = (expirationTime) => {
   };
 };
 
-export const asyncAuthentication = (email, password, signedUp) => {
+export const asyncAuthentication = (email, password, signedUp, redirect) => {
   return async (dispatch) => {
     dispatch(authLoading());
 
@@ -61,6 +60,7 @@ export const asyncAuthentication = (email, password, signedUp) => {
       console.log(res);
       dispatch(authSuccess(res.data.idToken, res.data.localId));
       dispatch(asyncSetTimerLogout(res.data.expiresIn));
+      redirect.replace('/orders');
     } catch (err) {
       //   console.log(err);
       dispatch(authError(err.response.data.error));

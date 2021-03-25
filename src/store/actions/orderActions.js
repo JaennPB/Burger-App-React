@@ -25,11 +25,11 @@ const orderError = () => {
   };
 };
 
-export const asyncOrderStart = (orderData) => {
+export const asyncOrderStart = (orderData, token) => {
   return async (dispatch) => {
     dispatch(orderLoading());
     try {
-      await axios.post('/orders.json', orderData);
+      await axios.post(`/orders.json?auth=${token}`, orderData);
       dispatch(orderSubmit());
     } catch {
       dispatch(orderError());
@@ -58,11 +58,11 @@ const getOrderError = () => {
   };
 };
 
-export const asyncGetOrders = () => {
+export const asyncGetOrders = (token) => {
   return async (dispatch) => {
     dispatch(getOrderLoading());
     try {
-      const res = await axios.get('/orders.json');
+      const res = await axios.get(`/orders.json?auth=${token}`);
       const fetchedOrders = [];
       for (let key in res.data) {
         fetchedOrders.push({ ...res.data[key], key: key });

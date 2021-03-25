@@ -140,7 +140,7 @@ class ContactForm extends Component {
       contactInfo: formData,
     };
 
-    this.props.asyncOrderStart(orderData);
+    this.props.asyncOrderStart(orderData, this.props.token);
   };
 
   checkValidation = (value, rules) => {
@@ -237,6 +237,7 @@ const mapStateToProps = (state) => {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
     loading: state.orders.loading,
+    token: state.auth.idToken,
   };
 };
 

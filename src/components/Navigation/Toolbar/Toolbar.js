@@ -11,9 +11,9 @@ const toolbar = (props) => (
       <AppLogo />
     </div>
     <nav>
-      <NavItems />
+      <NavItems isAuth={props.authCurrState} />
     </nav>
-    <SideDrawerButton clicked={props.buttonToggle} />
+    <SideDrawerButton clicked={props.buttonToggle} isAuth={props.authCurrState} />
   </header>
 );
 

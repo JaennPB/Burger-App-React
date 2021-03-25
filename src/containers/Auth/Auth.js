@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Form/Input/Input';
@@ -89,7 +90,8 @@ class Auth extends Component {
     this.props.asyncAuthentication(
       this.state.contactInfo.email.value,
       this.state.contactInfo.password.value,
-      this.state.signUp
+      this.state.signUp,
+      this.props.history
     );
   };
 
@@ -174,4 +176,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = actions;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Auth));
