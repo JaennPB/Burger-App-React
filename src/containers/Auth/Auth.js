@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Form/Input/Input';
@@ -90,8 +90,7 @@ class Auth extends Component {
     this.props.asyncAuthentication(
       this.state.contactInfo.email.value,
       this.state.contactInfo.password.value,
-      this.state.signUp,
-      this.props.history
+      this.state.signUp
     );
   };
 
@@ -158,8 +157,16 @@ class Auth extends Component {
       errorMessage = <p className={classes.ErrorMessage}>{this.props.error.message}</p>;
     }
 
+    let redirect = null;
+    if (this.props.isAuth && this.props.building) {
+      redirect = <Redirect to="/checkout" />;
+    } else if (this.props.isAuth && !this.props.building) {
+      redirect = <Redirect to="/" />;
+    }
+
     return (
       <div className={classes.Auth}>
+        {redirect}
         {authSection}
         {errorMessage}
       </div>
@@ -171,9 +178,11 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    building: state.burgerBuilder.building,
+    isAuth: state.auth.idToken !== null,
   };
 };
 
 const mapDispatchToProps = actions;
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Auth));
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

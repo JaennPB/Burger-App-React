@@ -4,7 +4,7 @@ import { updateState } from '../utility';
 const initalState = {
   orders: [],
   loading: false,
-  purchased: true,
+  purchased: null,
 };
 
 const orderReducer = (state = initalState, actions) => {

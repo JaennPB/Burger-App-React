@@ -16,28 +16,18 @@ class Checkout extends Component {
   };
 
   render() {
-    let summary = <Redirect to="/" />;
-    if (this.props.ings) {
-      const redirectAfterPurchase = this.props.purchased ? (
-        <Redirect to="/orders" />
-      ) : null;
-      summary = (
-        <div className={classes.Container}>
-          {redirectAfterPurchase}
-          <CheckoutSummary
-            ingredients={this.props.ings}
-            continueCheckout={this.continueCheckoutHandler}
-            cancelCheckout={this.cancelCheckoutHandler}
-            price={this.props.price}
-          />
-          <Route
-            path={`${this.props.match.path}/fill-data`}
-            component={ContactForm}
-          />
-        </div>
-      );
-    }
-    return summary;
+    return (
+      <div className={classes.Container}>
+        {this.props.purchased && <Redirect to="/orders" />}
+        <CheckoutSummary
+          ingredients={this.props.ings}
+          continueCheckout={this.continueCheckoutHandler}
+          cancelCheckout={this.cancelCheckoutHandler}
+          price={this.props.price}
+        />
+        <Route path={`${this.props.match.path}/fill-data`} component={ContactForm} />
+      </div>
+    );
   }
 }
 

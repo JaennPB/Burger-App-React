@@ -26,12 +26,8 @@ const buildControls = (props) => (
         );
       })}
       <p className={classes.Price}>Price: ${props.price.toFixed(2)}</p>
-      <button
-        className={classes.OrderButton}
-        disabled={!props.purchasableInfo}
-        onClick={props.orderNow}
-      >
-        ORDER NOW
+      <button className={classes.OrderButton} disabled={!props.purchasableInfo} onClick={props.orderNow}>
+        {props.authState ? 'ORDER NOW' : 'LOGIN TO ORDER'}
       </button>
     </div>
   </div>

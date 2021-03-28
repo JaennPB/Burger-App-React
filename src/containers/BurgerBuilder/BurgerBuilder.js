@@ -22,15 +22,17 @@ class BurgerBuilder extends Component {
   }
 
   updatePurchasableState = (ingredients) => {
-    const totalIngredients = Object.values(ingredients).some(
-      (item) => item > 0
-    );
+    const totalIngredients = Object.values(ingredients).some((item) => item > 0);
 
     return totalIngredients > 0;
   };
 
   startOrderHandler = () => {
-    this.setState({ startOrder: true });
+    if (this.props.isAuth) {
+      this.setState({ startOrder: true });
+    } else {
+      this.props.history.push('/login');
+    }
   };
 
   cancelOrderHandler = () => {
@@ -53,9 +55,7 @@ class BurgerBuilder extends Component {
     }
 
     let burger = this.props.error ? (
-      <div className={classes.BurgerBuilder}>
-        'COULD NOT LOAD INGREDIENTS... TRY AGAIN.
-      </div>
+      <div className={classes.BurgerBuilder}>'COULD NOT LOAD INGREDIENTS... TRY AGAIN.</div>
     ) : (
       <Spinner />
     );
@@ -70,6 +70,7 @@ class BurgerBuilder extends Component {
             price={this.props.price}
             purchasableInfo={this.updatePurchasableState(this.props.ings)}
             orderNow={this.startOrderHandler}
+            authState={this.props.isAuth}
           />
           <Burger ingredientsObject={this.props.ings} />
         </div>
@@ -100,12 +101,10 @@ const mapStateToProps = (state) => {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
     error: state.burgerBuilder.error,
+    isAuth: state.auth.idToken != null,
   };
 };
 
 const mapDispatchToProps = actions;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withErrorHandler(BurgerBuilder, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
