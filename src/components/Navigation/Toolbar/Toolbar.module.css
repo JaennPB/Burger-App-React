@@ -1,5 +1,5 @@
 .Toolbar {
-  height: 6vh;
+  height: 7vh;
   width: 100%;
   background-color: #f7ef99;
   position: fixed;
@@ -17,8 +17,6 @@
   flex: 0 0 50%;
   height: 100%;
   width: 100%;
-
-  display: flex;
 }
 
 .Toolbar ul {

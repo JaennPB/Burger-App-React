@@ -1,8 +1,7 @@
 .BuildControl {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  margin: 5px 0;
 }
 
 .BuildControl button {
@@ -24,7 +23,7 @@
 }
 
 .Label {
-  padding: 10px;
+  text-align: left;
   font-weight: bold;
   width: 80px;
   font-weight: 400;

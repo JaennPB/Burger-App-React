@@ -14,6 +14,9 @@
   letter-spacing: 0.1rem;
   text-decoration: none;
   color: #fd9974;
+
+  display: flex;
+  align-items: center;
 }
 
 .NavItem a:hover,
@@ -25,13 +28,21 @@
 @media only screen and (max-width: 700px) {
   .NavItem {
     text-align: center;
-    height: auto;
+    width: 100%;
+    height: fit-content;
 
     align-items: center;
-    margin-bottom: 5rem;
+  }
+
+  .NavItem a:hover,
+  .NavItem a:active,
+  .NavItem a.Active {
+    background-color: #fffabf;
+    border-left: 0.3rem solid #fd9974;
   }
 
   .NavItem a {
     font-size: 2rem;
+    padding: 1rem 2rem;
   }
 } ;

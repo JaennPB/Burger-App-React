@@ -21,11 +21,7 @@ class Layout extends Component {
   render() {
     return (
       <div className={classes.WholeContainer}>
-        <Toolbar
-          className={classes.Toolbar}
-          buttonToggle={this.openSideDrawerHandler}
-          authCurrState={this.props.authState}
-        />
+        <Toolbar buttonToggle={this.openSideDrawerHandler} authCurrState={this.props.authState} />
         <SideDrawer
           shouldShow={this.state.showSideDrawer}
           close={this.closeSideDrawerHandler}
