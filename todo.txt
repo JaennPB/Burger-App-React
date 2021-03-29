@@ -1,0 +1,17 @@
+burger builder improvements:
+
+1. fix css and mobile ui/ux
+
+2. add 'delete orders functionality'
+
+3. fix checkout form (remove email, replace with phone number)
+
+4. add username functionality when signing up and display username in toolbar
+
+6. when clicking username redirect to 'profile' show stats (burgers ordered, etc)
+
+7. add extra warning when logging out (modal)
+
+8. add landing page and add option to login or go directly to burger builder (with footer with links and info about me)
+
+9. add about us page (info about me, the developer: created with react, redux, etc)
