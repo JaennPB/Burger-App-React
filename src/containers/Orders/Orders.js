@@ -10,7 +10,7 @@ import * as actions from '../../store/actions/indexActions';
 
 class Orders extends Component {
   componentDidMount() {
-    this.props.asyncGetOrders(this.props.token);
+    this.props.asyncGetOrders(this.props.token, this.props.userId);
   }
 
   render() {
@@ -37,6 +37,7 @@ const mapStateToProps = (state) => {
     orders: state.orders.orders,
     loading: state.orders.loading,
     token: state.auth.idToken,
+    userId: state.auth.userId,
   };
 };
 

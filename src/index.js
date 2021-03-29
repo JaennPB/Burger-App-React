@@ -29,9 +29,12 @@ const rootReducer = combineReducers({
   auth: authReducer,
 });
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// using environment variable to only use redux devtools if in 'development mode'
+const composeEnhancers =
+  process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, logger)));
+// add logger function to applymiddleware(logger) to view action logger
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 const app = (
   <Provider store={store}>

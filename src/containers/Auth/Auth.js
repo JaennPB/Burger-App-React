@@ -7,6 +7,7 @@ import Input from '../../components/UI/Form/Input/Input';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './Auth.module.css';
 import * as actions from '../../store/actions/indexActions';
+import { checkValidation } from '../../shared/checkValidity';
 
 class Auth extends Component {
   state = {
@@ -50,34 +51,14 @@ class Auth extends Component {
     signUp: true,
   };
 
-  checkValidation = (value, rules) => {
-    let valid = true;
-
-    if (!rules) return true;
-
-    if (rules.required) {
-      valid = value.trim() !== '' && valid;
-    }
-
-    if (rules.length) {
-      valid = value.length >= rules.length.minLength && value.length <= rules.length.maxLength && valid;
-    }
-
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      valid = pattern.test(value) && valid;
-    }
-
-    return valid;
-  };
-
   changeInputValueHandler = (event, element) => {
+    // when copying: always access origianl object to copy even inside nested paths
     const formObject = {
       ...this.state.contactInfo,
       [element]: {
         ...this.state.contactInfo[element],
         value: event.target.value,
-        isValid: this.checkValidation(event.target.value, this.state.contactInfo[element].validationRules),
+        isValid: checkValidation(event.target.value, this.state.contactInfo[element].validationRules),
         touched: true,
       },
     };

@@ -9,6 +9,7 @@ import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Form/Input/Input';
 import * as actions from '../../../store/actions/indexActions';
+import { checkValidation } from '../../../shared/checkValidity';
 
 class ContactForm extends Component {
   state = {
@@ -135,6 +136,7 @@ class ContactForm extends Component {
     }
 
     const orderData = {
+      userId: this.props.userId,
       ingredients: this.props.ings,
       totalPrice: this.props.price,
       contactInfo: formData,
@@ -143,50 +145,23 @@ class ContactForm extends Component {
     this.props.asyncOrderStart(orderData, this.props.token);
   };
 
-  checkValidation = (value, rules) => {
-    let valid = true;
-
-    if (!rules) return true;
-
-    if (rules.required) {
-      valid = value.trim() !== '' && valid;
-    }
-
-    if (rules.length) {
-      valid = value.length >= rules.length.minLength && value.length <= rules.length.maxLength && valid;
-    }
-
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      valid = pattern.test(value) && valid;
-    }
-
-    if (rules.isNumeric) {
-      const pattern = /^\d+$/;
-      valid = pattern.test(value) && valid;
-    }
-
-    return valid;
-  };
-
   changeInputValueHandler = (event, element) => {
     const formObject = {
       ...this.state.contactInfo,
+      [element]: {
+        ...this.state.contactInfo[element],
+        value: event.target.value,
+        isValid: checkValidation(event.target.value, this.state.contactInfo[element].validationRules),
+        touched: true,
+      },
     };
-    const elementObject = {
-      ...formObject[element],
-    };
-    elementObject.value = event.target.value;
-    elementObject.isValid = this.checkValidation(elementObject.value, elementObject.validationRules);
-    elementObject.touched = true;
-    formObject[element] = elementObject;
-    // console.log(elementObject);
 
     // checking that all previous fields are also valid
     let formIsValid = true;
     for (let element in formObject) {
       formIsValid = formObject[element].isValid && formIsValid;
     }
+
     this.setState({ contactInfo: formObject, formIsValid: formIsValid });
   };
 
@@ -238,6 +213,7 @@ const mapStateToProps = (state) => {
     price: state.burgerBuilder.totalPrice,
     loading: state.orders.loading,
     token: state.auth.idToken,
+    userId: state.auth.userId,
   };
 };
 

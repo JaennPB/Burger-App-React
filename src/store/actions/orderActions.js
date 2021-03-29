@@ -58,11 +58,17 @@ const getOrderError = () => {
   };
 };
 
-export const asyncGetOrders = (token) => {
+export const asyncGetOrders = (token, userId) => {
   return async (dispatch) => {
     dispatch(getOrderLoading());
     try {
-      const res = await axios.get(`/orders.json?auth=${token}`);
+      const res = await axios.get(`/orders.json`, {
+        params: {
+          auth: token,
+          orderBy: `"userId"`,
+          equalTo: `"${userId}"`,
+        },
+      });
       const fetchedOrders = [];
       for (let key in res.data) {
         fetchedOrders.push({ ...res.data[key], key: key });
