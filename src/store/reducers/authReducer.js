@@ -6,6 +6,7 @@ const initialState = {
   userId: null,
   error: null,
   loading: false,
+  // username: '',
 };
 
 const authReducer = (state = initialState, actions) => {
@@ -23,6 +24,8 @@ const authReducer = (state = initialState, actions) => {
       return updateState(state, { idToken: null, userId: null });
     case actionTypes.AUTH_ERROR:
       return updateState(state, { error: actions.error, loading: false });
+    // case actionTypes.AUTH_GET_USERNAME:
+    //   return updateState(state, { username: actions.username });
   }
   return state;
 };

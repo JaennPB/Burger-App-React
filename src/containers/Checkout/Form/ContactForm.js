@@ -31,20 +31,20 @@ class ContactForm extends Component {
         isValid: false,
         touched: false,
       },
-      email: {
+      number: {
         elementType: 'input',
         value: '',
         elementConfig: {
-          type: 'email',
-          placeholder: 'Your E-Mail',
+          type: 'number',
+          placeholder: 'Your Phone Number',
         },
         validationRules: {
           required: true,
           length: {
-            minLength: '123@gmail.com'.length,
-            maxLength: '123@gmail.com'.length + 30,
+            minLength: 8,
+            maxLength: 15,
           },
-          isEmail: true,
+          isNumeric: true,
         },
         isValid: false,
         touched: false,

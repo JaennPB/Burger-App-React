@@ -9,7 +9,7 @@
   margin: 10px;
   font-weight: 400;
   font-size: 1.9rem;
-  border-radius: 10rem;
+  border-radius: 1.5rem;
 }
 
 .Green {
@@ -32,4 +32,3 @@
   background-color: #ccc;
   cursor: not-allowed;
 }
-

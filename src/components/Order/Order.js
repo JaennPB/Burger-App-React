@@ -27,7 +27,7 @@ const order = (props) => {
         <div className={classes.Info}>
           <p>Contact Info:</p>
           <span>{props.info.name}</span>
-          <span>{props.info.email}</span>
+          <span>{props.info.number}</span>
           <div>
             Delivery address:
             <ul>
@@ -36,9 +36,7 @@ const order = (props) => {
               <li>{props.info.zipCode}</li>
             </ul>
           </div>
-          <span className={classes.Method}>
-            Delivery Method: {props.info.deliveryMethod}
-          </span>
+          <span className={classes.Method}>Delivery Method: {props.info.deliveryMethod}</span>
         </div>
       </section>
       <div className={classes.Price}>

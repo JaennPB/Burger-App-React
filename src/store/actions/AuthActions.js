@@ -40,6 +40,13 @@ const asyncSetTimerLogout = (expirationTime) => {
   };
 };
 
+// const authGetUsername = (username) => {
+//   return {
+//     type: actionTypes.AUTH_GET_USERNAME,
+//     username: username,
+//   };
+// };
+
 export const asyncAuthentication = (email, password, signedUp) => {
   return async (dispatch) => {
     dispatch(authLoading());
@@ -60,9 +67,11 @@ export const asyncAuthentication = (email, password, signedUp) => {
 
     try {
       const res = await axios.post(`${url}${key}`, authData);
+      console.log(res.data);
       // dispatch actions
       dispatch(authSuccess(res.data.idToken, res.data.localId));
       dispatch(asyncSetTimerLogout(res.data.expiresIn));
+      // dispatch(authGetUsername(username));
       // set local storage
       const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000);
       localStorage.setItem('token', res.data.idToken);

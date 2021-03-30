@@ -1,10 +1,10 @@
 burger builder improvements:
 
-1. fix css and mobile ui/ux
+/1. fix css and mobile ui/ux 
 
-2. fix checkout form (remove email, replace with phone number)
+/2. fix checkout form (remove email, replace with phone number) 
 
-3. add username functionality when signing up and display username in toolbar
+3. add username functionality when signing up and display username in toolbar (need to store each profile in backend)
 
 4. when clicking username redirect to 'profile' show stats (burgers ordered, etc)
 

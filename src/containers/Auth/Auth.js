@@ -12,6 +12,23 @@ import { checkValidation } from '../../shared/checkValidity';
 class Auth extends Component {
   state = {
     contactInfo: {
+      // username: {
+      //   elementType: 'input',
+      //   value: '',
+      //   elementConfig: {
+      //     type: 'text',
+      //     placeholder: 'Username',
+      //   },
+      //   validationRules: {
+      //     required: true,
+      //     length: {
+      //       minLength: 5,
+      //       maxLength: 15,
+      //     },
+      //   },
+      //   isValid: false,
+      //   touched: false,
+      // },
       email: {
         elementType: 'input',
         value: '',
@@ -69,6 +86,7 @@ class Auth extends Component {
   startAuthHandler = (e) => {
     e.preventDefault();
     this.props.asyncAuthentication(
+      // this.state.contactInfo.username.value, // TODOOOO!!!!!!!!!!!!
       this.state.contactInfo.email.value,
       this.state.contactInfo.password.value,
       this.state.signUp
