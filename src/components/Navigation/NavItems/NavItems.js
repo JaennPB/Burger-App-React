@@ -5,7 +5,7 @@ import NavItem from './NavItem/NavItem';
 
 const navItems = (props) => {
   let authState = props.isAuth ? (
-    <NavItem link="/logout">Log Out</NavItem>
+    <NavItem link="/logout">Logout</NavItem>
   ) : (
     <NavItem link="/login">Login / Signup</NavItem>
   );
