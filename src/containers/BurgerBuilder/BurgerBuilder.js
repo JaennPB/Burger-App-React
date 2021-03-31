@@ -11,7 +11,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import * as actions from '../../store/actions/indexActions';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   // ONLY UI STATE, ALL FUNCTIONAL STATE MOVED TO REDUX
   state = {
     startOrder: false,
